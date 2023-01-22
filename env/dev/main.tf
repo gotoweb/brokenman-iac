@@ -24,6 +24,8 @@ resource "aws_cloudwatch_log_group" "cluster_log_group" {
 module "ecs" {
   source = "../../modules/ecs"
   name = var.env
+  vpc_id = module.vpc.id
+  container_port = var.container_port
 
   container_definitions = templatefile("container-def.json.tftpl", {
     name = var.env
@@ -34,4 +36,5 @@ module "ecs" {
 
   service_subnets = module.vpc.private_subnets
   service_security_groups = [ module.sg.allow_http_https_id ]
+  alb_subnets = module.vpc.public_subnets
 }
