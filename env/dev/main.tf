@@ -13,6 +13,25 @@ module "vpce" {
   source = "../../modules/vpce"
   name = var.env
   vpc_id = module.vpc.id
-  security_group_ids = [ module.sg.allow_http_https_id ]
-  private_subnet_ids = module.vpc.private_subnets_id
+  security_groups = [ module.sg.allow_http_https_id ]
+  private_subnets = module.vpc.private_subnets
+}
+
+resource "aws_cloudwatch_log_group" "cluster_log_group" {
+  name = "/ecs/${var.env}-logs"
+}
+
+module "ecs" {
+  source = "../../modules/ecs"
+  name = var.env
+
+  container_definitions = templatefile("container-def.json.tftpl", {
+    name = var.env
+    uri = var.container_uri
+    port = var.container_port
+    log_group = aws_cloudwatch_log_group.cluster_log_group.id
+  })
+
+  service_subnets = module.vpc.private_subnets
+  service_security_groups = [ module.sg.allow_http_https_id ]
 }

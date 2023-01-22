@@ -1,0 +1,41 @@
+[{
+  "name": "${name}-container",
+  "image": "${uri}",
+  "cpu": 0,
+  "links": [],
+  "portMappings": [
+      {
+          "name": "${name}-container-${port}",
+          "containerPort": ${port},
+          "hostPort": ${port},
+          "protocol": "tcp",
+          "appProtocol": "http"
+      }
+  ],
+  "essential": true,
+  "entryPoint": [],
+  "command": [],
+  "environment": [],
+  "environmentFiles": [],
+  "mountPoints": [],
+  "volumesFrom": [],
+  "secrets": [
+  ],
+  "dnsServers": [],
+  "dnsSearchDomains": [],
+  "extraHosts": [],
+  "dockerSecurityOptions": [],
+  "dockerLabels": {},
+  "ulimits": [],
+  "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "${log_group}",
+          "awslogs-region": "ap-northeast-2",
+          "awslogs-stream-prefix": "ecs"
+      },
+      "secretOptions": []
+  },
+  "systemControls": []
+}]

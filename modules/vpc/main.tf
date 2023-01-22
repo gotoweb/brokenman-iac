@@ -62,3 +62,16 @@ resource "aws_route_table" "public_rtb" {
     "Name" = "${var.name}-public-rtb"
   }
 }
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id = aws_vpc.vpc.id
+  service_name = "com.amazonaws.ap-northeast-2.s3"
+  tags = {
+    "Name" = "${var.name}-s3-endpoint"
+  }
+}
+
+resource "aws_vpc_endpoint_route_table_association" "public_rtb_endpoint" {
+  route_table_id = aws_route_table.private_rtb.id
+  vpc_endpoint_id = aws_vpc_endpoint.s3.id
+}
