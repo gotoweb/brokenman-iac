@@ -11,11 +11,11 @@ terraform {
 
 provider "aws" {
   region  = "ap-northeast-2"
-  profile = "company"
+  profile = "default"
 }
 
 resource "aws_s3_bucket" "tfstate" {
-  bucket = "gotoweb-tfstate"
+  bucket = "noah-tfstate"
 }
 
 resource "aws_s3_bucket_versioning" "versioning" {

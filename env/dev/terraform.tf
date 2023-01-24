@@ -9,16 +9,16 @@ terraform {
   required_version = ">= 1.2.0"
 
   backend "s3" {
-    bucket = "gotoweb-tfstate"
+    bucket = "noah-tfstate"
     key = "terraform.tfstate"
     region  = "ap-northeast-2"
     encrypt = true
     dynamodb_table = "terraform-lock"
-    profile = "company"
+    profile = "default"
   }
 }
 
 provider "aws" {
   region  = "ap-northeast-2"
-  profile = "company"
+  profile = "default"
 }
