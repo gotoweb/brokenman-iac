@@ -11,11 +11,10 @@ terraform {
 
 provider "aws" {
   region  = "ap-northeast-2"
-  profile = "default"
 }
 
 resource "aws_s3_bucket" "tfstate" {
-  bucket = "noah-tfstate"
+  bucket = var.backend_s3_bucket
 }
 
 resource "aws_s3_bucket_versioning" "versioning" {
@@ -26,7 +25,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
 }
 
 resource "aws_dynamodb_table" "terraform_state_lock" {
-  name           = "terraform-lock"
+  name           = var.state_lock
   hash_key       = "LockID"
   billing_mode   = "PAY_PER_REQUEST"
 
