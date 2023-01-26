@@ -20,6 +20,22 @@
   "mountPoints": [],
   "volumesFrom": [],
   "secrets": [
+    {
+        "name": "USERNAME",
+        "valueFrom": "${secretsmanager_arn}:RDS_USERNAME::"
+    },
+    {
+        "name": "PASSWORD",
+        "valueFrom": "${secretsmanager_arn}:RDS_PASSWORD::"
+    },
+    {
+        "name": "HOSTNAME",
+        "valueFrom": "${secretsmanager_arn}:RDS_HOSTNAME::"
+    },
+    {
+        "name": "DATABASE",
+        "valueFrom": "${secretsmanager_arn}:RDS_DATABASE::"
+    }
   ],
   "dnsServers": [],
   "dnsSearchDomains": [],

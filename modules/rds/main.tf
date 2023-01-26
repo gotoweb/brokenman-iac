@@ -36,6 +36,10 @@ resource "aws_rds_cluster" "cluster" {
       min_capacity = serverlessv2_scaling_configuration.value.min_capacity
     }
   }
+
+  lifecycle {
+    ignore_changes = [availability_zones, cluster_members]
+  }
 }
 
 resource "aws_rds_cluster_instance" "instance" {
@@ -45,4 +49,8 @@ resource "aws_rds_cluster_instance" "instance" {
   instance_class = var.instance_class
   engine = aws_rds_cluster.cluster.engine
   engine_version = aws_rds_cluster.cluster.engine_version
+
+  lifecycle {
+    ignore_changes = [apply_immediately]
+  }
 }

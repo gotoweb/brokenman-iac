@@ -25,3 +25,7 @@ variable "service_security_groups" {
 variable "alb_subnets" {
 
 }
+
+variable "desired_count" {
+  default = 2
+}

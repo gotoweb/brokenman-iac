@@ -57,7 +57,7 @@ resource "aws_ecs_service" "app" {
   task_definition = "${aws_ecs_task_definition.app.family}:${max(aws_ecs_task_definition.app.revision, data.aws_ecs_task_definition.app.revision)}"
   launch_type = "FARGATE"
   scheduling_strategy = "REPLICA"
-  desired_count = 2
+  desired_count = var.desired_count
   force_new_deployment = true
 
   network_configuration {
@@ -123,8 +123,8 @@ resource "aws_lb_listener" "listener" {
 }
 
 resource "aws_appautoscaling_target" "ecs_target" {
-  max_capacity = 4
-  min_capacity = 2
+  max_capacity = var.desired_count * 2
+  min_capacity = var.desired_count
   resource_id = "service/${aws_ecs_cluster.cluster.name}/${aws_ecs_service.app.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace = "ecs"
