@@ -1,9 +1,10 @@
 # Brokenman Infrastructure
 
-### Requirements
+## Requirements
 - AWS 계정
 - Terraform
 - AWS CLI
+- [k6](https://k6.io/)
 
 ## Deploy
 
@@ -41,3 +42,11 @@ terraform apply
 | `database_username` | 데이터베이스 사용자 이름 |
 | `database_password` | 데이터베이스 암호 |
 | `database_hostname` | 데이터베이스 엔드포인트 |
+
+## Load Test
+
+ECS의 Auto Scaling을 테스트하려면 k6를 사용해 다음과 같이 테스트하세요.
+
+```shell
+k6 run k6-load-test.js
+```
